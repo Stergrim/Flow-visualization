@@ -1,3 +1,16 @@
+# computeColor визуализирует цветом оптический поток (векторное поле),
+# то есть создает цветовой круг, где каждой величине вектора смещения
+# соотвествует свой цвет
+
+######################################################################
+# According to the c++ source code of Daniel Scharstein
+# Contact: schar@middlebury.edu
+
+# Author: Deqing Sun, Department of Computer Science, Brown University
+# Contact: dqsun@cs.brown.edu
+# Date: 2007-10-31 21:20:30 (Wed, 31 Oct 2006)
+######################################################################
+
 import sys
 import cv2
 import numpy as np
@@ -5,7 +18,6 @@ import numpy as np
 from readFlowFile import read_flow
 
 def makeColorwheel():
-	
 	RY = 15
 	YG = 6
 	GC = 4
@@ -46,10 +58,10 @@ def makeColorwheel():
 	#MR
 	colorwheel[col:MR+col, 2]= 255 - np.floor(255*np.arange(0, MR, 1)/MR)
 	colorwheel[col:MR+col, 0] = 255
+
 	return 	colorwheel
 
 def computeColor(u, v):
-
 	colorwheel = makeColorwheel()
 	nan_u = np.isnan(u)
 	nan_v = np.isnan(v)
@@ -64,14 +76,15 @@ def computeColor(u, v):
 	ncols = colorwheel.shape[0]
 	radius = np.sqrt(u**2 + v**2)
 	a = np.arctan2(-v, -u) / np.pi
-	fk = (a+1) /2 * (ncols-1) # -1~1 maped to 1~ncols
-	k0 = fk.astype(np.uint8)	 # 1, 2, ..., ncols
+	fk = (a+1) /2 * (ncols-1) 	   # -1~1 maped to 1~ncols
+	k0 = fk.astype(np.uint8)	   # 1, 2, ..., ncols
 	k1 = k0+1
 	k1[k1 == ncols] = 0
 	f = fk - k0
 
 	img = np.empty([k1.shape[0], k1.shape[1],3])
 	ncolors = colorwheel.shape[1]
+
 	for i in range(ncolors):
 		tmp = colorwheel[:,i]
 		col0 = tmp[k0]/255
@@ -84,12 +97,9 @@ def computeColor(u, v):
 
 	return img.astype(np.uint8)
 
-
 def computeImg(flow):
-
 	eps = sys.float_info.epsilon
 	UNKNOWN_FLOW_THRESH = 1e9
-	UNKNOWN_FLOW = 1e10
 
 	u = flow[: , : , 0]
 	v = flow[: , : , 1]
@@ -121,11 +131,10 @@ def computeImg(flow):
 	u = u/(maxrad+eps)
 	v = v/(maxrad+eps)
 	img = computeColor(u, v)
+
 	return img
 
-
 def visualComputeColor(address):
-
 	file = address
 	flow = read_flow(file)
 	img = computeImg(flow)	

@@ -1,3 +1,6 @@
+# visualizationFlow визуализация векторного поля из flow файла
+# с выбором фона и параметров отображения векторного поля
+
 import PIL.Image
 import numpy as np
 import matplotlib.pyplot as plt
@@ -5,11 +8,10 @@ import matplotlib.pyplot as plt
 from readFlowFile import read_flow
 
 def visualization_vector(args):
-
     if (args.flowfile == None):
         print("Не задан файл flow")
         return
-
+    # Список всех встроенных цветовых карт
     if (args.help_color == "colormaps"):
         colormaps_txt = [['Accent', 'Accent_r', 'Blues', 'Blues_r', 'BrBG', 'BrBG_r', 'BuGn', 'BuGn_r', 'BuPu', 'BuPu_r', 'CMRmap', 'CMRmap_r', 'Dark2'],
               ['Dark2_r', 'GnBu', 'GnBu_r', 'Greens', 'Greens_r', 'Greys', 'Greys_r', 'OrRd', 'OrRd_r', 'Oranges', 'Oranges_r', 'PRGn', 'PRGn_r'],
@@ -23,7 +25,7 @@ def visualization_vector(args):
               ['gray_r', 'hot', 'hot_r', 'hsv', 'hsv_r', 'inferno', 'inferno_r', 'jet', 'jet_r', 'magma', 'magma_r', 'nipy_spectral', 'nipy_spectral_r'],
               ['ocean', 'ocean_r', 'pink', 'pink_r', 'plasma', 'plasma_r', 'prism', 'prism_r', 'rainbow', 'rainbow_r', 'seismic', 'seismic_r', 'spring'],
               ['spring_r', 'summer', 'summer_r', 'tab10', 'tab10_r', 'tab20', 'tab20_r', 'tab20b', 'tab20b_r', 'tab20c', 'tab20c_r', 'terrain', 'terrain_r'],
-              ['turbo', 'turbo_r', 'twilight', 'twilight_r', 'twilight_shifted', 'twilight_shifted_r', 'viridis', 'viridis_r', 'winter', 'winter_r', '' , '', '']]
+              ['turbo', 'turbo_r', 'twilight', 'twilight_r', 'twilight_shifted', 'twilight_shifted_r', 'viridis', 'viridis_r', 'winter', 'winter_r', '', '', '']]
         for x in colormaps_txt:
             print("{:13}{:14}{:15}{:17}{:19}{:21}{:12}{:14}{:15}{:12}{:14}{:16}{:17}".format(*x))
         return
@@ -58,7 +60,7 @@ def visualization_vector(args):
             for j in range(flo.shape[1]):
                 norm_vec[i,j] = np.sqrt(flo[i,j,0]*flo[i,j,0] + flo[i,j,1]*flo[i,j,1])
 
-        # Выбор стандартная цветовая карта или кастомная
+        # Выбор стандартной цветовой карты или кастомной
         if (type(args.colormaps) == str):
             colormaps = [args.colormaps] # стандратная
         else:
@@ -70,8 +72,9 @@ def visualization_vector(args):
         for [ax, cmap] in zip(axs.flat, colormaps):
             psm = ax.pcolormesh(norm_vec, cmap=cmap, rasterized=True)
             fig.colorbar(psm, ax=ax)
-        
-        plt.quiver(X, Y, U.T, -V.T, color=args.color, scale=flo.shape[1]/args.size_vec)
+
+        if (args.size_vec != 0):
+            plt.quiver(X, Y, U.T, -V.T, color=args.color, scale=flo.shape[1]/args.size_vec)
         plt.gca().invert_yaxis()
         plt.show()
     else:
