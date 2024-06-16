@@ -11,7 +11,7 @@ def visualization_vector(args):
     if (args.flowfile == None):
         print("Не задан файл flow")
         return
-    # Список всех встроенных цветовых карт
+    # Вывести список всех встроенных цветовых карт
     if (args.help_color == "colormaps"):
         colormaps_txt = [['Accent', 'Accent_r', 'Blues', 'Blues_r', 'BrBG', 'BrBG_r', 'BuGn', 'BuGn_r', 'BuPu', 'BuPu_r', 'CMRmap', 'CMRmap_r', 'Dark2'],
               ['Dark2_r', 'GnBu', 'GnBu_r', 'Greens', 'Greens_r', 'Greys', 'Greys_r', 'OrRd', 'OrRd_r', 'Oranges', 'Oranges_r', 'PRGn', 'PRGn_r'],
@@ -60,12 +60,7 @@ def visualization_vector(args):
             for j in range(flo.shape[1]):
                 norm_vec[i,j] = np.sqrt(flo[i,j,0]*flo[i,j,0] + flo[i,j,1]*flo[i,j,1])
 
-        # Выбор стандартной цветовой карты или кастомной
-        if (type(args.colormaps) == str):
-            colormaps = [args.colormaps] # стандратная
-        else:
-            colormaps = [args.colormaps] # кастомная
-
+        colormaps = [args.colormaps]
         n = len(colormaps)
         fig, axs = plt.subplots(1, n,figsize=(int((n*args.figsize_x + 2)/1.5), int(args.figsize_y/1.5)),
                                 constrained_layout=True, squeeze=False)
@@ -78,4 +73,4 @@ def visualization_vector(args):
         plt.gca().invert_yaxis()
         plt.show()
     else:
-        print( "Выбран и фон и карта цетов. Выберете что-то одно. args.background != None and args.colormaps != None")
+        print( "Выбраны фон и цветовая карта. Выберете что-то одно. args.background != None and args.colormaps != None")

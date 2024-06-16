@@ -1,6 +1,6 @@
 # computeColor визуализирует цветом оптический поток (векторное поле),
-# то есть создает цветовой круг, где каждой величине вектора смещения
-# соотвествует свой цвет
+# то есть создает цветовой круг, где каждому направлению и величине
+# вектора смещения соответствует свой цвет
 
 ######################################################################
 # According to the c++ source code of Daniel Scharstein
@@ -126,7 +126,7 @@ def computeImg(flow):
 	minv = min([minv, np.amin(v)])
 	rad = np.sqrt(np.multiply(u,u)+np.multiply(v,v)) 
 	maxrad = max([maxrad, np.amax(rad)])
-	print('max flow: %.4f flow range: u = %.3f .. %.3f; v = %.3f .. %.3f\n' % (maxrad, minu, maxu, minv, maxv))
+	print('max flow: %.4f flow range: u = %.3f .. %.3f; v = %.3f .. %.3f' % (maxrad, minu, maxu, minv, maxv))
 
 	u = u/(maxrad+eps)
 	v = v/(maxrad+eps)

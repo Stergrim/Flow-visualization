@@ -39,16 +39,17 @@ args.size_vec = 5
 args.figsize_x = 8
 args.figsize_y = 8
 args.figure_dpi = 80
-args.background = "demos/DNS_turbulence_img1.png"
+args.background = "demos/DNS_turbulence_img1.png" # None
 args.colormaps = None # 'RdYlBu_r'
 args.help_color = None # "colormaps"
 
 # Запуск визуализации
-# visualization_vector(args)
+visualization_vector(args)
 
-# Визуализация цветом (не настраиваемая)
+# Визуализация смещений через цветовой круг (не настраиваемая)
 # visualComputeColor(args.flowfile)
 
-# Демонстрация
+# Демонстрация различных сценариев
 # demoTest()
-demoColormaps()
+# Демонстрация цветовых карт
+# demoColormaps()

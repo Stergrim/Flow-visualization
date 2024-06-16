@@ -28,7 +28,7 @@ parser.add_argument("--help_color", type=str, default=None, help="Standard color
 
 args = parser.parse_args()
 
-# Демострация векторных полей и различных фонов для них
+# Демонстрация векторных полей и различных фонов для них
 def demoTest():
     print("Векторное поле на фоне изображения")
     args.flowfile = "demos/vortexPair.flo"
@@ -41,10 +41,9 @@ def demoTest():
     args.figure_dpi = 80
     args.background = "demos/vortexPair_img1.png"
     args.colormaps = None
-    args.help_color = None
     visualization_vector(args)
     ####################################################################################################################
-    print("Векторное поле на кастомной цветовой карте, которая аналогична стандартной: RdYlBu_r")
+    print("Векторное поле на пользовательской цветовой карте, которая аналогична встроенной RdYlBu_r")
     args.flowfile = "demos/vortexPair.flo"
     args.color = 'black'
     args.step_x = 16
@@ -54,15 +53,14 @@ def demoTest():
     args.figsize_y = 10
     args.figure_dpi = 80
     args.background = None
-    # load colormaps 
+    # Загрузка цветовой карты
     BuYlRd = np.array(scipy.io.loadmat("demos/colorMapsCustom/BuYlRd.mat")['BuYlRd'])
-    # define colormaps 
+    # Приведение к формату встроенных цветовых карт
     BuYlRdColors = ListedColormap(BuYlRd, name='BuYlRd')
     args.colormaps = BuYlRdColors
-    args.help_color = None
     visualization_vector(args)
     ####################################################################################################################
-    print("Векторное поле для трёхцветной картинки")
+    print("Векторное поле для цветного изображения")
     args.flowfile = "demos/Color.flo"
     args.color = 'red'
     args.step_x = 8
@@ -73,13 +71,12 @@ def demoTest():
     args.figure_dpi = 80
     args.background = "demos/Color_img1.png"
     args.colormaps = None
-    args.help_color = None
     visualization_vector(args)
     ####################################################################################################################
-    print("Визуализация цветом (computeColor)")
+    print("Визуализация смещений через цветовой круг (файл computeColor)")
     visualComputeColor(args.flowfile)
     ####################################################################################################################
-    print("Векторное поле для test3")
+    print("Векторное поле на встроенной цветовой карте RdYlBu_r")
     args.flowfile = "demos/DNS_turbulence.flo"
     args.color = 'black'
     args.step_x = 4
@@ -90,17 +87,16 @@ def demoTest():
     args.figure_dpi = 80
     args.background = None
     args.colormaps = 'RdYlBu_r'
-    args.help_color = None
     visualization_vector(args)
 
 # Демонстрация некоторых цветовых карт, список всех встроенных
 # цветовых карт и список отобранных цветовых карт
 def demoColormaps():
-    print("Список всех встроенных цветовых карт:")
+    print("Список всех встроенных цветовых карт")
     args.help_color = "colormaps"
     visualization_vector(args)
     ####################################################################################################################
-    print("Демострация некоторых цветовых карт: 4 штуки")
+    print("Демонстрация некоторых цветовых карт: 4 штуки")
     args.flowfile = "demos/vortexPair.flo"
     args.color = 'black'
     args.step_x = 32
@@ -119,7 +115,7 @@ def demoColormaps():
         print("Цветовая карта: " + e)
         visualization_vector(args)
     ####################################################################################################################
-    print("Отобранные цветовые карты:")
+    print("Отобранные цветовые карты")
     txt = [['RdYlBu_r', 'Spectral_r', 'tab10_r', 'CMRmap', 'Greys', 'Greys_r'],
         ['OrRd', 'PuOr_r', 'RdBu_r', 'RdGy_r', 'afmhot', 'binary'],
         ['binary_r', 'bwr', 'coolwarm', 'gist_gray', 'gist_gray_r', 'gist_heat'],
