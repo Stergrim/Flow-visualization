@@ -28,25 +28,25 @@
 Пример работы `visualizationFlow` с отображением векторного поля
 
 <p float="left">
-<img src="demos/DNS_turbulence.gif" width="300" />
-<img src="demos/example_1.png" width="353" />
+<img src="/demos/DNS_turbulence.gif" width="300" />
+<img src="/demos/example_1.png" width="353" />
 </p>
 
 Пример работы `computeColor`
 
 <p float="left">
-<img src="demos/Color.gif" width="400" />
-<img src="demos/example_Color.png" width="367" />
+<img src="/demos/Color.gif" width="400" />
+<img src="/demos/example_Color.png" width="367" />
 </p>
 
 Пример работы `visualizationFlow` только с цветовой картой
 
 <p float="left">
-<img src="demos/vortexPair.gif" width="300" />
-<img src="demos/example_2.png" width="338" />
+<img src="/demos/vortexPair.gif" width="300" />
+<img src="/demos/example_2.png" width="338" />
 </p>
 
-В каталоге [demos](demos) находятся **flow** файлы, изображения и пример
+В каталоге [demos](/demos) находятся **flow** файлы, изображения и пример
 пользовательской цветовой карты, которые использовались в `demonstration.py`.
 
 ## Замечания
